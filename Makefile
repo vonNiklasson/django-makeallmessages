@@ -19,14 +19,14 @@ env-delete:
 .PHONY: lint
 lint:
 	python -m pycodestyle . --exclude '.venv,setup.py,docs/*'
-	isort --recursive --check-only makeallmessages tests
-	black --check makeallmessages tests
-	pylint makeallmessages
+	isort --recursive --check-only django-makeallmessages tests
+	black --check django-makeallmessages tests
+	pylint django-makeallmessages
 	pylint --disable=missing-docstring,no-self-use tests/*
-	mypy makeallmessages
+	mypy django-makeallmessages
 
 .PHONY: reformat
 reformat:
-	isort --recursive makeallmessages tests
-	black makeallmessages tests
+	isort --recursive django-makeallmessages tests
+	black django-makeallmessages tests
 
