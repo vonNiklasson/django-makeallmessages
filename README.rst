@@ -1,5 +1,5 @@
 ========================
- Django MakeAllMessages
+ Django makeallmessages
 ========================
 
 .. image:: https://img.shields.io/pypi/l/django-makeallmessages.svg
