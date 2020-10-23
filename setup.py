@@ -3,16 +3,24 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+
+packages = []
+for package in setuptools.find_packages():
+    if not package.startswith('tests'):
+        packages.add(package)
+
+packages = setuptools.find_packages()
+
 setuptools.setup(
     name="django-makeallmessages",
-    version="0.1.0",
+    version="0.1.1",
     author="Johan Niklasson",
     author_email="johan@niklasson.me",
     description="Adds the makeallmessages command that will make translations for all domains (including JavaScript)",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/vonNiklasson/django-makeallmessages",
-    packages=setuptools.find_packages(),
+    packages=packages,
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
@@ -30,5 +38,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
         'Topic :: Utilities',
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.5',
 )
