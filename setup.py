@@ -7,9 +7,7 @@ with open("README.md", "r") as fh:
 packages = []
 for package in setuptools.find_packages():
     if not package.startswith('tests'):
-        packages.add(package)
-
-packages = setuptools.find_packages()
+        packages.append(package)
 
 setuptools.setup(
     name="django-makeallmessages",
