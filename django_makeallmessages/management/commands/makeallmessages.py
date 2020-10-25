@@ -4,8 +4,8 @@ from django.core.management.commands.makemessages import Command as MakeMessages
 
 class Command(MakeMessagesCommand):
     help = (
-        "Run makemessages for all domains with optional default parameters read from MAM_DEFAULT in "
-        "the projects settings.py file. For help on how to configure the default values, please consult "
+        "Run makemessages for all domains with optional default parameters read from \"MAM_DEFAULT\" in "
+        "the projects settings.py file. For help on how to configure the default values, please consult \n"
         "https://github.com/vonNiklasson/django-makeallmessages\n\n"
         "Will ignore the domain parameter."
     )
@@ -15,14 +15,30 @@ class Command(MakeMessagesCommand):
             '--no-mam-default', action='store_true', dest='no_mam_default',
             help="Ignore the declared default values set in MAM_DEFAULT in the projects settings file.",
         )
+        parser.add_argument(
+            '--quiet', '-q', action='store_true', dest='quiet',
+            help="Disables output. Will still print fatal errors.",
+        )
         super(Command, self).add_arguments(parser)
 
     def handle(self, *args, **options):
-        options, error = self.get_default_values(**options)
+        # Store the stdout function to be able to restore it later
+        stdout_write = self.stdout.write
 
-        if error:
-            self.stderr.write('Default values contained errors. Aborting.')
-            return
+        # Suppress any output
+        if options['quiet']:
+            stdout_write = self.stdout.write
+            self.stdout.write = self.noop_write
+
+        # Check if we want to use default values
+        if not options['no_mam_default']:
+            options, error = self.get_default_values(**options)
+            # If errors occurred, print error message.
+            if error:
+                self.stderr.write('Default values contained errors. Aborting.')
+                return
+        else:
+            self.stdout.write("Skipping default values.")
 
         # Copy the options argument to later on modify them
         options_django = options.copy()
@@ -32,13 +48,19 @@ class Command(MakeMessagesCommand):
         options_django.update({'domain': 'django'})
         options_djangojs.update({'domain': 'djangojs'})
 
+        # Work with the django domain
         self.stdout.write('Processing domain', ending=' ')
         self.stdout.write(self.style.SUCCESS('django'))
         super(Command, self).handle(*args, **options_django)
 
+        # Work with the djangojs domain
         self.stdout.write('Processing domain', ending=' ')
         self.stdout.write(self.style.SUCCESS('djangojs'))
         super(Command, self).handle(*args, **options_djangojs)
+
+        # Restore stdout
+        if options['quiet']:
+            self.stdout.write = stdout_write
 
     def get_default_values(self, **options):
         error = False
@@ -87,3 +109,7 @@ class Command(MakeMessagesCommand):
         elif key not in obj:
             obj[key] = default_value
         return obj
+
+    def noop_write(self, msg='', style_func=None, ending=None):
+        pass
+
