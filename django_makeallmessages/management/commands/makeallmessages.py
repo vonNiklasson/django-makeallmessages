@@ -21,7 +21,8 @@ class Command(MakeMessagesCommand):
         options, error = self.get_default_values(**options)
 
         if error:
-            self.stdout.write(self.style.ERROR('Default values contained errors. Aborting.'))
+            self.stderr.write('Default values contained errors. Aborting.')
+            return
 
         # Copy the options argument to later on modify them
         options_django = options.copy()
@@ -43,18 +44,21 @@ class Command(MakeMessagesCommand):
         error = False
 
         if isinstance(DEFAULT_VALUES['locale'], list):
+            options = self.assert_value(options, 'locale', [])
             options['locale'] += DEFAULT_VALUES['locale']
         else:
             self.stderr.write('Setting "MAM_DEFAULT.locale" must be of type list or string.')
             error = True
 
         if isinstance(DEFAULT_VALUES['extension'], list):
+            options = self.assert_value(options, 'extensions', [])
             options['extensions'] += DEFAULT_VALUES['extension']
         else:
             self.stderr.write('Setting "MAM_DEFAULT.extension" must be of type list or string.')
             error = True
 
         if isinstance(DEFAULT_VALUES['ignore'], list):
+            options = self.assert_value(options, 'ignore', [])
             options['ignore_patterns'] += DEFAULT_VALUES['ignore']
         else:
             self.stderr.write('Setting "MAM_DEFAULT.ignore" must be of type list or string.')
@@ -62,9 +66,24 @@ class Command(MakeMessagesCommand):
 
         if isinstance(DEFAULT_VALUES['no_wrap'], bool):
             options['no_wrap'] = DEFAULT_VALUES['no_wrap']
-        else:
+        elif DEFAULT_VALUES['no_wrap'] is not None:
             self.stderr.write('Setting "MAM_DEFAULT.no_wrap" must be of type bool.')
             error = True
 
         return options, error
 
+    @staticmethod
+    def assert_value(obj, key, default_value):
+        """
+        Make sure that an object obj contains a key. If not, set obj[key] = default_value
+
+        @param obj: The object to check on.
+        @param key: The key to check if it exists.
+        @param default_value: The value to set if the key doesn't exist on the object.
+        @return: The obj instance, with the possibility that it's now modified.
+        """
+        if key in obj and obj[key] is None:
+            obj[key] = default_value
+        elif key not in obj:
+            obj[key] = default_value
+        return obj
