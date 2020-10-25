@@ -44,11 +44,23 @@ class Command(MakeMessagesCommand):
         super(Command, self).add_arguments(parser)
 
     def handle(self, *args, **options):
-        options, error = self.get_default_values(**options)
+        # Store the stdout function to be able to restore it later
+        stdout_write = self.stdout.write
 
-        if error:
-            self.stderr.write('Default values contained errors. Aborting.')
-            return
+        # Suppress any output
+        if options['quiet']:
+            stdout_write = self.stdout.write
+            self.stdout.write = self.noop_write
+
+        # Check if we want to use default values
+        if not options['no_mam_default']:
+            options, error = self.get_default_values(**options)
+            # If errors occurred, print error message.
+            if error:
+                self.stderr.write('Default values contained errors. Aborting.')
+                return
+        else:
+            self.stdout.write("Skipping default values.")
 
         # Copy the options argument to later on modify them
         options_django = options.copy()
