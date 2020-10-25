@@ -47,7 +47,8 @@ class Command(MakeMessagesCommand):
         options, error = self.get_default_values(**options)
 
         if error:
-            self.stdout.write(self.style.ERROR('Default values contained errors. Aborting.'))
+            self.stderr.write('Default values contained errors. Aborting.')
+            return
 
         # Copy the options argument to later on modify them
         options_django = options.copy()
