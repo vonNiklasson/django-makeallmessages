@@ -24,7 +24,7 @@ class Command(MakeMessagesCommand):
 
         # Set the domain to django and djangojs
         options_django.update({'domain': 'django'})
-        options_djangojs.update({'domain': 'django'})
+        options_djangojs.update({'domain': 'djangojs'})
 
         self.stdout.write('Processing domain', ending=' ')
         self.stdout.write(self.style.SUCCESS('django'))
