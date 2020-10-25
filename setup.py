@@ -1,6 +1,6 @@
 import setuptools
 
-with open("README.rst", "r") as fh:
+with open("README.md", "r") as fh:
     long_description = fh.read()
 
 
@@ -14,9 +14,9 @@ setuptools.setup(
     version="0.1.1",
     author="Johan Niklasson",
     author_email="johan@niklasson.me",
-    description="Adds the makeallmessages command that will make translations for all domains (including JavaScript)",
+    description="Django Makeallmessages is a tool designed to ease the message making in your Django project.",
     long_description=long_description,
-    long_description_content_type="text/x-rst",
+    long_description_content_type="text/markdown",
     url="https://github.com/vonNiklasson/django-makeallmessages",
     packages=packages,
     classifiers=[
