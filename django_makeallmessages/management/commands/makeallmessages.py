@@ -12,7 +12,7 @@ class Command(MakeMessagesCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--no-mam-default', action='sture_true', dest='no_mam_default',
+            '--no-mam-default', action='store_true', dest='no_mam_default',
             help="Ignore the declared default values set in MAM_DEFAULT in the projects settings file.",
         )
         super(Command, self).add_arguments(parser)
