@@ -11,7 +11,7 @@ for package in setuptools.find_packages():
 
 setuptools.setup(
     name="django-makeallmessages",
-    version="0.1.1",
+    version="0.2.0",
     author="Johan Niklasson",
     author_email="johan@niklasson.me",
     description="Django Makeallmessages is a tool designed to ease the message making in your Django project.",
