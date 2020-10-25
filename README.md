@@ -16,7 +16,7 @@
 Django Makeallmessages allows you to set default parameters to your `makemessage` commands and covers all
 the regular file extensions, including your JavaScript files, with one command!
 
-**Instead of doing this**
+**:x: Don't do this**
 
 ```shell script
 $ python manage.py makemessages --locale=en
@@ -29,7 +29,7 @@ $ python manage.py makemessages --locale=en
                                 --domain=djangojs
 ```
 
-**Just do this**
+**:white_check_mark: Do this!**
 
 ```shell script
 $ python manage.py makeallmessages
