@@ -16,10 +16,34 @@
 .. role:: code(code)
 .. role:: bash(code)
    :language: bash
+.. role:: python(code)
+   :language: python
 
+Django Makeallmessages allows you to set default parameters to your :code:`makemessage` commands and covers all
+the regular file extensions, including your JavaScript files, with one command!
 
+Instead of doing this
 
-Django Makeallmessages is a tool, designed to ease the message making in your Django project.
+.. code-block:: bash
+
+    $ python manage.py makemessages -l en -l fr
+    processing locale fr
+    processing locale en
+    $ python manage.py makemessages -l en -l fr --domain=djangojs --ignore=node_modules/* --ignore=npm
+    processing locale fr
+    processing locale en
+
+Just do this
+
+.. code-block:: bash
+
+    $ python manage.py makeallmessages
+     - Processing domain django
+    processing locale fr
+    processing locale en
+     - Processing domain djangojs
+    processing locale fr
+    processing locale en
 
 Requirements
 ============
@@ -58,4 +82,16 @@ file
         'django_makeallmessages',
         ...
     )
+
+
+Configuration
+=============
+
+TBA
+
+
+Command Line Parameters
+=======================
+
+TBA
 
