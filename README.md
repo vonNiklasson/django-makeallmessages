@@ -35,6 +35,14 @@ $ python manage.py makemessages --locale=en
 $ python manage.py makeallmessages
 ```
 
+## Overview
+
+ 1. [Requirements](#requirements)
+ 2. [Fetching it](#fetching-it)
+ 3. [Installation](#installation)
+ 4. [Available parameters](#available-parameters)
+ 5. [Command line arguments](#command-line-arguments)
+
 ## Requirements
 
 Django Makeallmessages requires `Django 2.2` or later.
