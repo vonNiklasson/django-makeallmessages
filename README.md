@@ -35,7 +35,7 @@ $ python manage.py makemessages --locale=en
 $ python manage.py makeallmessages
 ```
 
-## Overview
+# Overview
 
  1. [Requirements](#requirements)
  2. [Fetching it](#fetching-it)
@@ -43,12 +43,12 @@ $ python manage.py makeallmessages
  4. [Available parameters](#available-parameters)
  5. [Command line arguments](#command-line-arguments)
 
-## Requirements
+# Requirements
 
 Django Makeallmessages requires `Django 2.2` or later.
 
 
-## Fetching It
+# Fetching It
 
 You can get Django Makeallmessages by using pip
 
@@ -65,7 +65,7 @@ $ python setup.py install
 ```
 
 
-## Installation
+# Installation
 
 To add `django_makeallmessages` to your project you must first add it to `INSTALLED_APPS`
 in the projects `settings.py` file
@@ -79,7 +79,7 @@ INSTALLED_APPS = (
 ```
 
 
-## Configuration
+# Configuration
 
 You can configure default values to be used when running `makeallmessages`. This is done by setting
 the `MAM_DEFAULT`in your projects `settings.py` file.
@@ -96,14 +96,14 @@ MAM_DEFAULT = {
 
 The default settings are all derived from the arguments used in the standard `makemessages` command.
 
-### Available parameters:
+## Available parameters:
 
  - `locale` (list): A list locales you want to make messages from.
  - `extension` (list): A list of extensions you want to include, beyond the standard extensions (html,txt,py,js)
  - `ignore` (list): A list of files or directories to ignore matching a glob-style pattern.
  - `no_wrap` (bool): A boolean that decides whether to not break long message lines into several lines.
 
-## Command line arguments
+# Command line arguments
 
 Two additional CLI arguments has been added to the `makeallmessages` apart from the default ones
 derived from `makemessages`.
